@@ -1,0 +1,39 @@
+-- 检查输入是否为整数
+on checkInput(inputText)
+	try
+		if (inputText as number) = (inputText as integer) then
+			return true
+		else
+			return false
+		end if
+	on error
+		return false
+	end try
+end checkInput
+
+-- 生成随机数的主程序
+on run {input, parameters}
+				set minInput to text returned of (display dialog "请输入最小值（必须是整数）:" default answer "1")
+	if not checkInput(minInput) then
+		display dialog "输入无效，请输入整数。"
+		return
+	end if
+	
+	set maxInput to text returned of (display dialog "请输入最大值（必须是整数）:" default answer "100")
+	if not checkInput(maxInput) then
+		display dialog "输入无效，请输入整数。"
+		return
+	end if
+	
+	set minValue to minInput as integer
+	set maxValue to maxInput as integer
+	
+	if maxValue ≤ minValue then
+		display dialog "最大值必须大于最小值。"
+		return
+	end if
+	
+	set randomNumber to (random number from minValue to maxValue)
+	display dialog "生成的随机数是: " & (randomNumber as string)
+	return randomNumber
+end run
